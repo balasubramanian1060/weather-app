@@ -106,6 +106,7 @@ function App() {
     try {
       let res = await fetch(url);
       let data = await res.json()
+      // console.log(data)
 
       if (data.cod === "404") {
         console.log("city not found");
@@ -122,11 +123,12 @@ function App() {
       setLat(data.coord.lat);
       setLog(data.coord.lon);
       const weatherIconCode = data.weather[0].icon;
+      console.log(weatherIconCode); 
       setIcon(weatherIconMap[weatherIconCode] || clearIcon);
       setCityNotFound(false);
 
     } catch (error) {
-      console.log("An error occurred", error.message);
+      console.log("An error occurred", error);
       setError("An error occurred while fetching weather data.");
     } finally {
       setLoading(false);
@@ -142,9 +144,12 @@ function App() {
     }
   };
 
-  useEffect(()=> {
-    search();
-  },[]);
+  useEffect(function () {
+    if (text){
+      search();
+    }
+    
+  }, []);
 
   return (
     <div className="App">
