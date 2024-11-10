@@ -1,7 +1,7 @@
 body{
     margin: 0px;
     padding: 0px;
-    background-color: aliceblue;
+    background-color: #323030;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -12,7 +12,7 @@ body{
 .container{
     width: 350px;
     padding: 20px;
-    background-color: whitesmoke;
+    background:  rgb(251, 251, 251);
     border-radius: 8px;
     box-shadow:  0 4px 8px black ;
 }
@@ -66,7 +66,7 @@ div img{
 
 }
 .location{
-    color: tomato;
+    color: rgb(243, 40, 4);
     font-weight: 400;
     font-size: 40px;
 
@@ -119,7 +119,8 @@ div img{
 
 }.text{
     font-size: 12px;
-    color: #f30606;
+    color: #000000;
+    font-weight: 500;
 }
 .city-not-found,
 .loading-message,
@@ -129,4 +130,7 @@ div img{
     font-size: 25px;
     font-weight: 400;
     text-align: center;
+}
+.loading-message{
+    color: rgb(38, 174, 38);
 }
