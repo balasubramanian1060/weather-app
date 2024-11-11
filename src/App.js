@@ -14,7 +14,7 @@ const WeatherDetails = ({ icon, temp, city, country, lat, log, wind, humidity })
       <div className='image'>
         <img src={icon} alt='weather icon' />
       </div>
-      <div className='temp'> {temp}°C</div>
+      <div className='temp'>{temp}°C</div>
       <div className='location'>{city}</div>
       <div className='country'>{country}</div>
       <div className='cord'>
@@ -39,7 +39,7 @@ const WeatherDetails = ({ icon, temp, city, country, lat, log, wind, humidity })
         </div>
         <div className='element'>
           <svg className='windicon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path d="M288 32c0 17.7 14.3 32 32 32l32 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-320 0c-17.7 0-32-14.3-32-32s14.3-32 32-32L320 0c53 0 96 43 96 96s-43 96-96 96l-32 0c-17.7 0-32-14.3-32-32zm64 352c0 17.7 14.3 32 32 32l32 0c53 0 96-43 96-96s-43-96-96-96L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-32 0c-17.7 0-32 14.3-32 32zM128 512l32 0c53 0 96-43 96-96s-43-96-96-96L32 320c-17.7 0-32 14.3-32 32s14.3 32 32 32l128 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-32 0c-17.7 0-32 14.3-32 32s14.3 32 32 32z" />
+            <path d="M288 32c0 17.7 14.3 32 32 32l32 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128c-17.7 0-32 14.3-32 32s14.3 32 32 32l320 0c53 0 96-43 96-96s-43-96-96-96L320 0c-17.7 0-32 14.3-32 32zm64 352c0 17.7 14.3 32 32 32l32 0c53 0 96-43 96-96s-43-96-96-96L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-32 0c-17.7 0-32 14.3-32 32zM128 512l32 0c53 0 96-43 96-96s-43-96-96-96L32 320c-17.7 0-32 14.3-32 32s14.3 32 32 32l128 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-32 0c-17.7 0-32 14.3-32 32s14.3 32 32 32z" />
           </svg>
           <div className='data'>
             <div className='wind-percent'>{wind} km/h</div>
@@ -76,38 +76,38 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [cityNotFound, setCityNotFound] = useState(false);
 
-  const weatherIconMap = {
-    "01d": clearIcon,
-    "01n": clearIcon,
-    "02d": cloudIcon,
-    "02n": cloudIcon,
-    "03d": drizzleIcon,
-    "03n": drizzleIcon,
-    "04d": drizzleIcon,
-    "04n": drizzleIcon,
-    "09d": rainIcon,
-    "09n": rainIcon,
-    "10d": rainIcon,
-    "10n": rainIcon,
-    "13d": snowIcon,
-    "13n": snowIcon,
-  };
-
   const search = useCallback(async () => {
+    const weatherIconMap = {
+      "01d": clearIcon,
+      "01n": clearIcon,
+      "02d": cloudIcon,
+      "02n": cloudIcon,
+      "03d": drizzleIcon,
+      "03n": drizzleIcon,
+      "04d": drizzleIcon,
+      "04n": drizzleIcon,
+      "09d": rainIcon,
+      "09n": rainIcon,
+      "10d": rainIcon,
+      "10n": rainIcon,
+      "13d": snowIcon,
+      "13n": snowIcon,
+    };
+  
     setLoading(true);
+    setCityNotFound(false);
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${text}&appid=74c519349af3ed9075a5239444180067&units=metric`;
-
+  
     try {
       let res = await fetch(url);
       let data = await res.json();
-
+  
       if (data.cod !== 200) {
         setError("Error: " + data.message);
         setCityNotFound(true);
-        setLoading(false);
         return;
       }
-
+  
       setHumidity(data.main.humidity);
       setWind(data.wind.speed);
       setTemp(Math.floor(data.main.temp));
@@ -117,14 +117,14 @@ function App() {
       setLog(data.coord.lon);
       const weatherIconCode = data.weather && data.weather[0] && data.weather[0].icon;
       setIcon(weatherIconMap[weatherIconCode] || clearIcon);
-      setCityNotFound(false);
     } catch (error) {
       console.log("An error occurred", error);
       setError("An error occurred while fetching weather data.");
     } finally {
       setLoading(false);
     }
-  }, [text, weatherIconMap]);
+  }, [text]); 
+  
 
   const handleCity = (e) => setText(e.target.value);
   const handlekeydown = (e) => {
@@ -134,8 +134,8 @@ function App() {
   };
 
   useEffect(() => {
-    search();
-  }, [search]);
+    
+  }, [search,]);
 
   return (
     <div className="App">
