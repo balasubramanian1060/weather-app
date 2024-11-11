@@ -16,7 +16,7 @@ const WeatherDetails = ({ icon, temp, city, country, lat, log, wind, humidity })
       <div className='image'>
         <img src={icon} alt='sunny'></img>
       </div>
-      <div className='temp'> {temp}*C</div>
+      <div className='temp'> {temp}°C</div>
       <div className='location'>{city}</div>
       <div className='country'>{country}</div>
       <div className='cord'>
@@ -144,12 +144,10 @@ function App() {
     }
   };
 
-  useEffect(function () {
-    if (text){
-      search();
-    }
-    
-  }, []);
+  useEffect(() => {
+    search();
+  }, [text]); 
+
 
   return (
     <div className="App">
